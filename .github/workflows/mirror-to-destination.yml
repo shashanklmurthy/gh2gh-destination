@@ -1,0 +1,40 @@
+name: Mirror to destination
+
+on:
+  workflow_dispatch:
+
+env:
+  DEST_REPO: shashanklmurthy/gh2gh-destination
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Verify MIRROR_PAT secret
+        env:
+          MIRROR_PAT: ${{ secrets.MIRROR_PAT }}
+        run: |
+          if [ -z "$MIRROR_PAT" ]; then
+            echo "::error::Repository secret MIRROR_PAT is not set."
+            echo "Create a fine-grained or classic PAT with write access to ${DEST_REPO} and add it as a repository secret named MIRROR_PAT."
+            exit 1
+          fi
+
+      - name: Mirror push to destination
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MIRROR_PAT: ${{ secrets.MIRROR_PAT }}
+          SOURCE_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          echo "Cloning ${SOURCE_REPO} as a bare mirror..."
+          git clone --mirror "https://x-access-token:${GITHUB_TOKEN}@github.com/${SOURCE_REPO}.git" mirror.git
+
+          cd mirror.git
+          echo "Pushing mirror to ${DEST_REPO}..."
+          git push --mirror "https://x-access-token:${MIRROR_PAT}@github.com/${DEST_REPO}.git"
+          echo "Mirror push completed."
