@@ -1,5 +1,6 @@
 Mirror test changelog
 =====================
-
+v1.0.1 - Update Readme Instructions
+v1.0.0 - Tag replication
 v0.2.0 - Added sample data files for mirror workflow testing
 v0.1.0 - Initial repository setup

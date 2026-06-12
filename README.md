@@ -23,11 +23,14 @@ You need a token that can **push** to the destination repository.
 
 - Resource owner: your account
 - Repository access: only `gh2gh-destination`
-- Permissions: **Contents** → Read and write
+- Permissions:
+  - **Contents** → Read and write
+  - **Workflows** → Read and write (required because this repo includes `.github/workflows/`)
 
 **Classic PAT**
 
-- Scope: `repo` (full control of private repositories; for public repos this still grants push access)
+- Scopes: **`repo`** and **`workflow`**
+- GitHub rejects pushes that create or update workflow files unless the token has the `workflow` scope, even if `repo` is enabled
 
 ### 2. Add the PAT as a repository secret
 
