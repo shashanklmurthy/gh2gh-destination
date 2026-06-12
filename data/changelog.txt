@@ -1,0 +1,5 @@
+Mirror test changelog
+=====================
+
+v0.2.0 - Added sample data files for mirror workflow testing
+v0.1.0 - Initial repository setup
