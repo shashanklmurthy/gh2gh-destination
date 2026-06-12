@@ -3,6 +3,14 @@ name: Mirror to destination
 on:
   workflow_dispatch:
 
+  # Uncomment schedule to mirror automatically on a cadence (times are UTC).
+  # GitHub may delay scheduled runs by several minutes during high load.
+  #
+  # schedule:
+  #   - cron: '0 * * * *'     # Every hour at :00
+  #   - cron: '*/15 * * * *'   # Every 15 minutes
+  #   - cron: '0 2 * * *'      # Daily at 02:00 UTC
+
 env:
   DEST_REPO: shashanklmurthy/gh2gh-destination
 
