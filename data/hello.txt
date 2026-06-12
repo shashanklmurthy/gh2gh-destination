@@ -1,0 +1,3 @@
+Hello from gh2gh-source.
+
+This file exists to provide sample content for mirror replication testing.
